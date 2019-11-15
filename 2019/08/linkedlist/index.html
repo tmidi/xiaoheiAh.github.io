@@ -1,0 +1,620 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>Collections-Linkedlist | xiaohei&#39;s blog | Java Developer</title><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content=noodp><meta name=Description content=赵小黑的各种记录><link rel=prev href=https://xiaohei.im/2019/08/treemap/><link rel=next href=https://xiaohei.im/2019/08/linkedhashmap/><link rel=canonical href=https://xiaohei.im/2019/08/linkedlist/><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><meta name=twitter:card content=summary><meta name=twitter:title content=Collections-Linkedlist><meta name=twitter:description content><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Collections-Linkedlist","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/xiaohei.im\/2019\/08\/linkedlist\/"},"image":{"@type":"ImageObject","url":"https:\/\/xiaohei.im\/cover.png","width":800,"height":600},"genre":"posts","keywords":"collections","wordcount":3212,"url":"https:\/\/xiaohei.im\/2019\/08\/linkedlist\/","datePublished":"2019-08-15T13:19:18\x2b08:00","dateModified":"2019-08-15T13:19:18\x2b08:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"XXXX","logo":{"@type":"ImageObject","url":"https:\/\/xiaohei.im\/logo.png","width":127,"height":40}},"description":""}</script><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.10.1/css/all.min.css integrity="sha256-fdcFNFiBMrNfWL6OcAGQz6jDgNTRxnrLEd4vJYFWScE=" crossorigin=anonymous><link rel=stylesheet href=/css/lib/animate/animate.min.min.css></head><body><script>window.isDark=(window.localStorage&&window.localStorage.getItem('theme'))==='dark';window.isDark&&document.body.classList.add('dark-theme');</script><div class=wrapper><nav class=navbar><div class=navbar-container><div class=navbar-header><a href=https://xiaohei.im/>xiaohei&#39;s blog | Java Developer</a></div><div class=navbar-menu><a class=menu-item href=https://xiaohei.im/posts/>文章</a>
+<a class=menu-item href=https://xiaohei.im/tags/>标签</a>
+<a class=menu-item href=https://xiaohei.im/categories/>分类</a>
+<a class=menu-item href=https://xiaohei.im/about/>关于</a>
+<a href=javascript:void(0); class=theme-switch><i class="fas fa-adjust fa-rotate-180 fa-fw"></i></a></div></div></nav><nav class=navbar-mobile><div class=navbar-container><div class=navbar-header><div><a href=javascript:void(0); class=theme-switch><i class="fas fa-adjust fa-rotate-180 fa-fw"></i></a><a href=https://xiaohei.im/>xiaohei&#39;s blog | Java Developer</a></div><div class=menu-toggle id=menu-toggle><span></span><span></span><span></span></div></div><div class=navbar-menu id=mobile-menu><a class=menu-item href=https://xiaohei.im/posts/>文章</a>
+<a class=menu-item href=https://xiaohei.im/tags/>标签</a>
+<a class=menu-item href=https://xiaohei.im/categories/>分类</a>
+<a class=menu-item href=https://xiaohei.im/about/>关于</a></div></div></nav><main class=main><div class=container><article class=post-warp><h1 class="post-title animated flipInX">Collections-Linkedlist</h1><div class=post-meta><div class=post-meta-main><a class=author href=https://xiaohei.im/ rel=author><i class="fas fa-user-circle fa-fw"></i>xiaoheiAh&nbsp;</a>
+<span class=post-category>收录于
+<i class="far fa-folder fa-fw"></i><a href=https://xiaohei.im/categories/corejava/>CoreJava</a></span></div><div class=post-meta-other><i class="far fa-calendar-alt fa-fw"></i><time datetime=2019-08-15>2019-08-15</time>&nbsp;
+<i class="fas fa-pencil-alt fa-fw"></i>约 3212 字&nbsp;
+<i class="far fa-clock fa-fw"></i>预计阅读 7 分钟&nbsp;</div></div><div class=post-toc id=post-toc><h2 class=post-toc-title>目录</h2><div class=post-toc-content><nav id=TableOfContents><ul><li><ul><li><ul><li><ul><li><a href=#主要属性>主要属性</a></li><li><a href=#构造函数>构造函数</a></li></ul></li><li><a href=#主要方法>主要方法</a></li><li><a href=#查询操作>查询操作</a></li><li><a href=#队列类的操作>队列类的操作</a></li><li><a href=#linkedlist中的迭代器>LinkedList中的迭代器</a></li></ul></li></ul></li></ul></nav></div></div><div class=post-toc-mobile id=post-toc-mobile><details><summary><div class=post-toc-title><span>目录</span><span><i class="details icon fas fa-angle-down"></i></span></div></summary><div class=post-toc-content><nav id=TableOfContentsMobile><ul><li><ul><li><ul><li><ul><li><a href=#主要属性>主要属性</a></li><li><a href=#构造函数>构造函数</a></li></ul></li><li><a href=#主要方法>主要方法</a></li><li><a href=#查询操作>查询操作</a></li><li><a href=#队列类的操作>队列类的操作</a></li><li><a href=#linkedlist中的迭代器>LinkedList中的迭代器</a></li></ul></li></ul></li></ul></nav></div></details></div><div class=post-content><p>实现了<code>List</code>和<code>Deque</code>接口的双向队列,允许插入<code>null</code>值</p><a class=post-dummy-target id=主要属性></a><h4>主要属性</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-java data-lang=java><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-java data-lang=java>    <span class=kd>transient</span> <span class=nf>int</span> <span class=n>size</span> <span class=o>=</span> <span class=n>0</span><span class=p>;</span><span class=c1>//大小
+</span><span class=c1></span>
+    <span class=cm>/**
+</span><span class=cm>     * Pointer to first node.
+</span><span class=cm>     * Invariant: (first == null &amp;&amp; last == null) ||
+</span><span class=cm>     *            (first.prev == null &amp;&amp; first.item != null)
+</span><span class=cm>     */</span>
+    <span class=kd>transient</span> <span class=nf>Node</span><span class=o>&lt;</span><span class=n>E</span><span class=o>&gt;</span> <span class=nf>first</span><span class=p>;</span> <span class=c1>//头结点
+</span><span class=c1></span>
+    <span class=cm>/**
+</span><span class=cm>     * Pointer to last node.
+</span><span class=cm>     * Invariant: (first == null &amp;&amp; last == null) ||
+</span><span class=cm>     *            (last.next == null &amp;&amp; last.item != null)
+</span><span class=cm>     */</span>
+    <span class=kd>transient</span> <span class=nf>Node</span><span class=o>&lt;</span><span class=n>E</span><span class=o>&gt;</span> <span class=nf>last</span><span class=p>;</span> <span class=c1>//尾节点
+</span><span class=c1></span>    <span class=c1>//Node节点长这样:item实体对象,prev/next指向前一个后一个节点
+</span><span class=c1></span>    <span class=kd>private</span> <span class=nf>static</span> <span class=kd>class</span> <span class=nf>Node</span><span class=o>&lt;</span><span class=n>E</span><span class=o>&gt;</span> <span class=p>{</span>
+        <span class=n>E</span> <span class=nf>item</span><span class=p>;</span>
+        <span class=n>Node</span><span class=o>&lt;</span><span class=n>E</span><span class=o>&gt;</span> <span class=nf>next</span><span class=p>;</span>
+        <span class=n>Node</span><span class=o>&lt;</span><span class=n>E</span><span class=o>&gt;</span> <span class=nf>prev</span><span class=p>;</span>
+
+        <span class=n>Node</span><span class=p>(</span><span class=n>Node</span><span class=o>&lt;</span><span class=n>E</span><span class=o>&gt;</span> <span class=nf>prev</span><span class=p>,</span> <span class=n>E</span> <span class=nf>element</span><span class=p>,</span> <span class=n>Node</span><span class=o>&lt;</span><span class=n>E</span><span class=o>&gt;</span> <span class=nf>next</span><span class=p>)</span> <span class=p>{</span>
+            <span class=k>this</span><span class=p>.</span><span class=na>item</span> <span class=o>=</span> <span class=n>element</span><span class=p>;</span>
+            <span class=k>this</span><span class=p>.</span><span class=na>next</span> <span class=o>=</span> <span class=n>next</span><span class=p>;</span>
+            <span class=k>this</span><span class=p>.</span><span class=na>prev</span> <span class=o>=</span> <span class=n>prev</span><span class=p>;</span>
+        <span class=p>}</span>
+    <span class=p>}</span></code></pre></td></tr></table></div></div><a class=post-dummy-target id=构造函数></a><h4>构造函数</h4><p>主要介绍带参数的构造函数</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-java data-lang=java><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-java data-lang=java>    <span class=c1>//c == null 时会抛空指针异常
+</span><span class=c1></span>    <span class=kd>public</span> <span class=nf>LinkedList</span><span class=p>(</span><span class=n>Collection</span><span class=o>&lt;?</span> <span class=kd>extends</span> <span class=nf>E</span><span class=o>&gt;</span> <span class=n>c</span><span class=p>)</span> <span class=p>{</span>
+        <span class=k>this</span><span class=p>();</span>
+        <span class=n>addAll</span><span class=p>(</span><span class=n>c</span><span class=p>);</span>
+    <span class=p>}</span>
+    <span class=c1>//最终会走到 addAll方法
+</span><span class=c1></span>    <span class=kd>public</span> <span class=nf>boolean</span> <span class=n>addAll</span><span class=p>(</span><span class=kt>int</span> <span class=nf>index</span><span class=p>,</span> <span class=n>Collection</span><span class=o>&lt;?</span> <span class=kd>extends</span> <span class=nf>E</span><span class=o>&gt;</span> <span class=n>c</span><span class=p>)</span> <span class=p>{</span>
+        <span class=n>checkPositionIndex</span><span class=p>(</span><span class=n>index</span><span class=p>);</span><span class=c1>//判断index是否非法 index&lt;0 || index&gt;size
+</span><span class=c1></span>        <span class=c1>//集合转数组
+</span><span class=c1></span>        <span class=n>Object</span><span class=p>[]</span> <span class=nf>a</span> <span class=o>=</span> <span class=n>c</span><span class=p>.</span><span class=na>toArray</span><span class=p>();</span>
+        <span class=kt>int</span> <span class=nf>numNew</span> <span class=o>=</span> <span class=n>a</span><span class=p>.</span><span class=na>length</span><span class=p>;</span>
+        <span class=k>if</span> <span class=p>(</span><span class=n>numNew</span> <span class=o>==</span> <span class=n>0</span><span class=p>)</span>
+            <span class=k>return</span> <span class=kc>false</span><span class=p>;</span>
+
+        <span class=n>Node</span><span class=o>&lt;</span><span class=n>E</span><span class=o>&gt;</span> <span class=nf>pred</span><span class=p>,</span> <span class=n>succ</span><span class=p>;</span>
+        <span class=k>if</span> <span class=p>(</span><span class=n>index</span> <span class=o>==</span> <span class=n>size</span><span class=p>)</span> <span class=p>{</span> <span class=c1>//默认会从最后一个节点追加
+</span><span class=c1></span>            <span class=n>succ</span> <span class=o>=</span> <span class=kc>null</span><span class=p>;</span>
+            <span class=n>pred</span> <span class=o>=</span> <span class=n>last</span><span class=p>;</span>
+        <span class=p>}</span> <span class=k>else</span> <span class=p>{</span> <span class=c1>//自定义index后 会先取到该index对应的对象
+</span><span class=c1></span>            <span class=n>succ</span> <span class=o>=</span> <span class=n>node</span><span class=p>(</span><span class=n>index</span><span class=p>);</span><span class=c1>//调用node方法取得index位置下的node
+</span><span class=c1></span>            <span class=n>pred</span> <span class=o>=</span> <span class=n>succ</span><span class=p>.</span><span class=na>prev</span><span class=p>;</span>
+        <span class=p>}</span>
+        
+        <span class=c1>//遍历需要赋值的数组
+</span><span class=c1></span>        <span class=k>for</span> <span class=p>(</span><span class=n>Object</span> <span class=nf>o</span> <span class=o>:</span> <span class=n>a</span><span class=p>)</span> <span class=p>{</span>
+            <span class=nd>@SuppressWarnings</span><span class=p>(</span><span class=s>&#34;unchecked&#34;</span><span class=p>)</span> <span class=n>E</span> <span class=nf>e</span> <span class=o>=</span> <span class=p>(</span><span class=n>E</span><span class=p>)</span> <span class=n>o</span><span class=p>;</span>
+            <span class=n>Node</span><span class=o>&lt;</span><span class=n>E</span><span class=o>&gt;</span> <span class=nf>newNode</span> <span class=o>=</span> <span class=k>new</span> <span class=n>Node</span><span class=o>&lt;&gt;</span><span class=p>(</span><span class=n>pred</span><span class=p>,</span> <span class=n>e</span><span class=p>,</span> <span class=kc>null</span><span class=p>);</span><span class=c1>//不要next节点是因为迭代时可以自行设置
+</span><span class=c1></span>            <span class=k>if</span> <span class=p>(</span><span class=n>pred</span> <span class=o>==</span> <span class=kc>null</span><span class=p>)</span><span class=c1>//说明是从头开始
+</span><span class=c1></span>                <span class=n>first</span> <span class=o>=</span> <span class=n>newNode</span><span class=p>;</span>
+            <span class=k>else</span>
+                <span class=n>pred</span><span class=p>.</span><span class=na>next</span> <span class=o>=</span> <span class=n>newNode</span><span class=p>;</span>
+            <span class=n>pred</span> <span class=o>=</span> <span class=n>newNode</span><span class=p>;</span>
+        <span class=p>}</span>
+        
+        <span class=c1>//尾部node双向绑定
+</span><span class=c1></span>        <span class=k>if</span> <span class=p>(</span><span class=n>succ</span> <span class=o>==</span> <span class=kc>null</span><span class=p>)</span> <span class=p>{</span><span class=c1>//不是指定index地方插入时,即从尾部插入,没有succ节点
+</span><span class=c1></span>            <span class=n>last</span> <span class=o>=</span> <span class=n>pred</span><span class=p>;</span>
+        <span class=p>}</span> <span class=k>else</span> <span class=p>{</span><span class=c1>//从指定index插入时,需要与尾部节点连接
+</span><span class=c1></span>            <span class=n>pred</span><span class=p>.</span><span class=na>next</span> <span class=o>=</span> <span class=n>succ</span><span class=p>;</span>
+            <span class=n>succ</span><span class=p>.</span><span class=na>prev</span> <span class=o>=</span> <span class=n>pred</span><span class=p>;</span>
+        <span class=p>}</span>
+
+        <span class=n>size</span> <span class=o>+=</span> <span class=n>numNew</span><span class=p>;</span>
+        <span class=n>modCount</span><span class=o>++</span><span class=p>;</span>
+        <span class=k>return</span> <span class=kc>true</span><span class=p>;</span>
+    <span class=p>}</span>
+
+    <span class=n>Node</span><span class=o>&lt;</span><span class=n>E</span><span class=o>&gt;</span> <span class=nf>node</span><span class=p>(</span><span class=kt>int</span> <span class=nf>index</span><span class=p>)</span> <span class=p>{</span>
+        <span class=c1>// assert isElementIndex(index);
+</span><span class=c1></span>        <span class=c1>//掰成两半儿查找
+</span><span class=c1></span>        <span class=k>if</span> <span class=p>(</span><span class=n>index</span> <span class=o>&lt;</span> <span class=p>(</span><span class=n>size</span> <span class=o>&gt;&gt;</span> <span class=n>1</span><span class=p>))</span> <span class=p>{</span><span class=c1>//小于size的一半时从头开始查
+</span><span class=c1></span>            <span class=n>Node</span><span class=o>&lt;</span><span class=n>E</span><span class=o>&gt;</span> <span class=nf>x</span> <span class=o>=</span> <span class=n>first</span><span class=p>;</span>
+            <span class=k>for</span> <span class=p>(</span><span class=kt>int</span> <span class=nf>i</span> <span class=o>=</span> <span class=n>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=n>index</span><span class=p>;</span> <span class=n>i</span><span class=o>++</span><span class=p>)</span>
+                <span class=n>x</span> <span class=o>=</span> <span class=n>x</span><span class=p>.</span><span class=na>next</span><span class=p>;</span>
+            <span class=k>return</span> <span class=n>x</span><span class=p>;</span>
+        <span class=p>}</span> <span class=k>else</span> <span class=p>{</span><span class=c1>//index大于size的一半时,从后往前找
+</span><span class=c1></span>            <span class=n>Node</span><span class=o>&lt;</span><span class=n>E</span><span class=o>&gt;</span> <span class=nf>x</span> <span class=o>=</span> <span class=n>last</span><span class=p>;</span>
+            <span class=k>for</span> <span class=p>(</span><span class=kt>int</span> <span class=nf>i</span> <span class=o>=</span> <span class=n>size</span> <span class=o>-</span> <span class=n>1</span><span class=p>;</span> <span class=n>i</span> <span class=o>&gt;</span> <span class=n>index</span><span class=p>;</span> <span class=n>i</span><span class=o>--</span><span class=p>)</span>
+                <span class=n>x</span> <span class=o>=</span> <span class=n>x</span><span class=p>.</span><span class=na>prev</span><span class=p>;</span>
+            <span class=k>return</span> <span class=n>x</span><span class=p>;</span>
+        <span class=p>}</span>
+    <span class=p>}</span></code></pre></td></tr></table></div></div><a class=post-dummy-target id=主要方法></a><h3>主要方法</h3><p>1.get</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-java data-lang=java><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-java data-lang=java>    <span class=kd>public</span> <span class=nf>E</span> <span class=n>get</span><span class=p>(</span><span class=kt>int</span> <span class=nf>index</span><span class=p>)</span> <span class=p>{</span>
+        <span class=n>checkElementIndex</span><span class=p>(</span><span class=n>index</span><span class=p>);</span><span class=c1>//检查index界限,会抛下标越界异常
+</span><span class=c1></span>        <span class=k>return</span> <span class=n>node</span><span class=p>(</span><span class=n>index</span><span class=p>).</span><span class=na>item</span><span class=p>;</span><span class=c1>//遍历取得指定index下的node
+</span><span class=c1></span>    <span class=p>}</span></code></pre></td></tr></table></div></div><p>2.set</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-java data-lang=java><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-java data-lang=java>    <span class=kd>public</span> <span class=nf>E</span> <span class=n>set</span><span class=p>(</span><span class=kt>int</span> <span class=nf>index</span><span class=p>,</span> <span class=n>E</span> <span class=nf>element</span><span class=p>)</span> <span class=p>{</span>
+        <span class=c1>//检查下标
+</span><span class=c1></span>        <span class=n>checkElementIndex</span><span class=p>(</span><span class=n>index</span><span class=p>);</span>
+        <span class=n>Node</span><span class=o>&lt;</span><span class=n>E</span><span class=o>&gt;</span> <span class=nf>x</span> <span class=o>=</span> <span class=n>node</span><span class=p>(</span><span class=n>index</span><span class=p>);</span><span class=c1>//获取对应的node
+</span><span class=c1></span>        <span class=n>E</span> <span class=nf>oldVal</span> <span class=o>=</span> <span class=n>x</span><span class=p>.</span><span class=na>item</span><span class=p>;</span><span class=c1>//取出旧item
+</span><span class=c1></span>        <span class=n>x</span><span class=p>.</span><span class=na>item</span> <span class=o>=</span> <span class=n>element</span><span class=p>;</span><span class=c1>//赋值新item
+</span><span class=c1></span>        <span class=k>return</span> <span class=n>oldVal</span><span class=p>;</span>
+    <span class=p>}</span></code></pre></td></tr></table></div></div><ol><li><p>add</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-java data-lang=java><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-java data-lang=java><span class=kd>public</span> <span class=nf>void</span> <span class=n>add</span><span class=p>(</span><span class=kt>int</span> <span class=nf>index</span><span class=p>,</span> <span class=n>E</span> <span class=nf>element</span><span class=p>)</span> <span class=p>{</span>
+    <span class=n>checkPositionIndex</span><span class=p>(</span><span class=n>index</span><span class=p>);</span>
+
+    <span class=k>if</span> <span class=p>(</span><span class=n>index</span> <span class=o>==</span> <span class=n>size</span><span class=p>)</span><span class=c1>//index等于size大小时在最后追加
+</span><span class=c1></span>        <span class=n>linkLast</span><span class=p>(</span><span class=n>element</span><span class=p>);</span>
+    <span class=k>else</span>
+        <span class=n>linkBefore</span><span class=p>(</span><span class=n>element</span><span class=p>,</span> <span class=n>node</span><span class=p>(</span><span class=n>index</span><span class=p>));</span><span class=c1>//在该index直接添加
+</span><span class=c1></span><span class=p>}</span>
+    
+<span class=c1>//在尾部连接一个对象
+</span><span class=c1></span><span class=kt>void</span> <span class=nf>linkLast</span><span class=p>(</span><span class=n>E</span> <span class=nf>e</span><span class=p>)</span> <span class=p>{</span>
+    <span class=kd>final</span> <span class=nf>Node</span><span class=o>&lt;</span><span class=n>E</span><span class=o>&gt;</span> <span class=nf>l</span> <span class=o>=</span> <span class=n>last</span><span class=p>;</span><span class=c1>//获得当前的最后一个节点
+</span><span class=c1></span>    <span class=kd>final</span> <span class=nf>Node</span><span class=o>&lt;</span><span class=n>E</span><span class=o>&gt;</span> <span class=nf>newNode</span> <span class=o>=</span> <span class=k>new</span> <span class=n>Node</span><span class=o>&lt;&gt;</span><span class=p>(</span><span class=n>l</span><span class=p>,</span> <span class=n>e</span><span class=p>,</span> <span class=kc>null</span><span class=p>);</span><span class=c1>//新建一个节点,当前最后一个节点作为prev节点
+</span><span class=c1></span>    <span class=n>last</span> <span class=o>=</span> <span class=n>newNode</span><span class=p>;</span>
+    <span class=k>if</span> <span class=p>(</span><span class=n>l</span> <span class=o>==</span> <span class=kc>null</span><span class=p>)</span><span class=c1>//若前一个节点为null list还没有值 则头尾都用该节点
+</span><span class=c1></span>        <span class=n>first</span> <span class=o>=</span> <span class=n>newNode</span><span class=p>;</span>
+    <span class=k>else</span>
+        <span class=n>l</span><span class=p>.</span><span class=na>next</span> <span class=o>=</span> <span class=n>newNode</span><span class=p>;</span><span class=c1>//将上一个节点与新节点连接起来
+</span><span class=c1></span>    <span class=n>size</span><span class=o>++</span><span class=p>;</span><span class=c1>//链表长度+1
+</span><span class=c1></span>    <span class=n>modCount</span><span class=o>++</span><span class=p>;</span><span class=c1>//操作链表次数+1
+</span><span class=c1></span><span class=p>}</span>
+
+<span class=c1>//官方文档上这么说:在一个非空节点前插入新节点 
+</span><span class=c1>//但是其实没有做非空校验了
+</span><span class=c1></span><span class=kt>void</span> <span class=nf>linkBefore</span><span class=p>(</span><span class=n>E</span> <span class=nf>e</span><span class=p>,</span> <span class=n>Node</span><span class=o>&lt;</span><span class=n>E</span><span class=o>&gt;</span> <span class=nf>succ</span><span class=p>)</span> <span class=p>{</span>
+    <span class=c1>// assert succ != null; 非空校验注释掉了
+</span><span class=c1></span>    <span class=kd>final</span> <span class=nf>Node</span><span class=o>&lt;</span><span class=n>E</span><span class=o>&gt;</span> <span class=nf>pred</span> <span class=o>=</span> <span class=n>succ</span><span class=p>.</span><span class=na>prev</span><span class=p>;</span><span class=c1>//中间插入 那就是succ的prev节点要重新与新节点的prev连接,新节点的next节点为succ节点
+</span><span class=c1></span>    <span class=kd>final</span> <span class=nf>Node</span><span class=o>&lt;</span><span class=n>E</span><span class=o>&gt;</span> <span class=nf>newNode</span> <span class=o>=</span> <span class=k>new</span> <span class=n>Node</span><span class=o>&lt;&gt;</span><span class=p>(</span><span class=n>pred</span><span class=p>,</span> <span class=n>e</span><span class=p>,</span> <span class=n>succ</span><span class=p>);</span>
+    <span class=n>succ</span><span class=p>.</span><span class=na>prev</span> <span class=o>=</span> <span class=n>newNode</span><span class=p>;</span><span class=c1>//succ节点与新节点连接
+</span><span class=c1></span>    <span class=k>if</span> <span class=p>(</span><span class=n>pred</span> <span class=o>==</span> <span class=kc>null</span><span class=p>)</span><span class=c1>//上一个节点为空时则首尾节点都是该节点
+</span><span class=c1></span>        <span class=n>first</span> <span class=o>=</span> <span class=n>newNode</span><span class=p>;</span>
+    <span class=k>else</span>
+        <span class=n>pred</span><span class=p>.</span><span class=na>next</span> <span class=o>=</span> <span class=n>newNode</span><span class=p>;</span>
+    <span class=n>size</span><span class=o>++</span><span class=p>;</span><span class=c1>//链表长度+1
+</span><span class=c1></span>    <span class=n>modCount</span><span class=o>++</span><span class=p>;</span><span class=c1>//操作次数+1
+</span><span class=c1></span><span class=p>}</span></code></pre></td></tr></table></div></div></li></ol><p>4.remove
+除了各种逻辑最后都会用到unlink方法:大致是将需要删除的对象的prev和next节点重新连接起来,在将该对象置空让gc回收</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-java data-lang=java><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-java data-lang=java>    <span class=n>E</span> <span class=nf>unlink</span><span class=p>(</span><span class=n>Node</span><span class=o>&lt;</span><span class=n>E</span><span class=o>&gt;</span> <span class=nf>x</span><span class=p>)</span> <span class=p>{</span>
+        <span class=c1>// assert x != null;
+</span><span class=c1></span>        <span class=kd>final</span> <span class=nf>E</span> <span class=n>element</span> <span class=o>=</span> <span class=n>x</span><span class=p>.</span><span class=na>item</span><span class=p>;</span>
+        <span class=kd>final</span> <span class=nf>Node</span><span class=o>&lt;</span><span class=n>E</span><span class=o>&gt;</span> <span class=nf>next</span> <span class=o>=</span> <span class=n>x</span><span class=p>.</span><span class=na>next</span><span class=p>;</span><span class=c1>//获取该节点下一个节点
+</span><span class=c1></span>        <span class=kd>final</span> <span class=nf>Node</span><span class=o>&lt;</span><span class=n>E</span><span class=o>&gt;</span> <span class=nf>prev</span> <span class=o>=</span> <span class=n>x</span><span class=p>.</span><span class=na>prev</span><span class=p>;</span><span class=c1>//获取该节点上一个节点
+</span><span class=c1></span>
+        <span class=k>if</span> <span class=p>(</span><span class=n>prev</span> <span class=o>==</span> <span class=kc>null</span><span class=p>)</span> <span class=p>{</span><span class=c1>//上一个节点为null时则删除的是头结点 将下一个节点变为头结点
+</span><span class=c1></span>            <span class=n>first</span> <span class=o>=</span> <span class=n>next</span><span class=p>;</span>
+        <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+            <span class=n>prev</span><span class=p>.</span><span class=na>next</span> <span class=o>=</span> <span class=n>next</span><span class=p>;</span><span class=c1>//prev不为null时 将prev的next改为x的next
+</span><span class=c1></span>            <span class=n>x</span><span class=p>.</span><span class=na>prev</span> <span class=o>=</span> <span class=kc>null</span><span class=p>;</span><span class=c1>//将x的prev置空 让gc回收
+</span><span class=c1></span>        <span class=p>}</span>
+
+        <span class=k>if</span> <span class=p>(</span><span class=n>next</span> <span class=o>==</span> <span class=kc>null</span><span class=p>)</span> <span class=p>{</span><span class=c1>//x的next为null时说明该节点是尾节点
+</span><span class=c1></span>            <span class=n>last</span> <span class=o>=</span> <span class=n>prev</span><span class=p>;</span>
+        <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+            <span class=n>next</span><span class=p>.</span><span class=na>prev</span> <span class=o>=</span> <span class=n>prev</span><span class=p>;</span><span class=c1>//next的prev挂靠到x的prev
+</span><span class=c1></span>            <span class=n>x</span><span class=p>.</span><span class=na>next</span> <span class=o>=</span> <span class=kc>null</span><span class=p>;</span><span class=c1>//x的next置空回收
+</span><span class=c1></span>        <span class=p>}</span>
+
+        <span class=n>x</span><span class=p>.</span><span class=na>item</span> <span class=o>=</span> <span class=kc>null</span><span class=p>;</span><span class=c1>//item置空回收
+</span><span class=c1></span>        <span class=n>size</span><span class=o>--</span><span class=p>;</span><span class=c1>//长度减1
+</span><span class=c1></span>        <span class=n>modCount</span><span class=o>++</span><span class=p>;</span><span class=c1>//操作次数+1
+</span><span class=c1></span>        <span class=k>return</span> <span class=n>element</span><span class=p>;</span>
+    <span class=p>}</span></code></pre></td></tr></table></div></div><ol><li><p>clear操作</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-java data-lang=java><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-java data-lang=java><span class=c1>//清空所有的节点
+</span><span class=c1></span><span class=kd>public</span> <span class=nf>void</span> <span class=n>clear</span><span class=p>()</span> <span class=p>{</span>
+    <span class=c1>// Clearing all of the links between nodes is &#34;unnecessary&#34;, but:
+</span><span class=c1></span>    <span class=c1>// - helps a generational GC if the discarded nodes inhabit
+</span><span class=c1></span>    <span class=c1>//   more than one generation
+</span><span class=c1></span>    <span class=c1>// - is sure to free memory even if there is a reachable Iterator
+</span><span class=c1></span>    <span class=k>for</span> <span class=p>(</span><span class=n>Node</span><span class=o>&lt;</span><span class=n>E</span><span class=o>&gt;</span> <span class=nf>x</span> <span class=o>=</span> <span class=n>first</span><span class=p>;</span> <span class=n>x</span> <span class=o>!=</span> <span class=kc>null</span><span class=p>;</span> <span class=p>)</span> <span class=p>{</span>
+        <span class=n>Node</span><span class=o>&lt;</span><span class=n>E</span><span class=o>&gt;</span> <span class=nf>next</span> <span class=o>=</span> <span class=n>x</span><span class=p>.</span><span class=na>next</span><span class=p>;</span>
+        <span class=n>x</span><span class=p>.</span><span class=na>item</span> <span class=o>=</span> <span class=kc>null</span><span class=p>;</span>
+        <span class=n>x</span><span class=p>.</span><span class=na>next</span> <span class=o>=</span> <span class=kc>null</span><span class=p>;</span>
+        <span class=n>x</span><span class=p>.</span><span class=na>prev</span> <span class=o>=</span> <span class=kc>null</span><span class=p>;</span>
+        <span class=n>x</span> <span class=o>=</span> <span class=n>next</span><span class=p>;</span>
+    <span class=p>}</span>
+    <span class=n>first</span> <span class=o>=</span> <span class=n>last</span> <span class=o>=</span> <span class=kc>null</span><span class=p>;</span>
+    <span class=n>size</span> <span class=o>=</span> <span class=n>0</span><span class=p>;</span>
+    <span class=n>modCount</span><span class=o>++</span><span class=p>;</span>
+<span class=p>}</span></code></pre></td></tr></table></div></div></li></ol><a class=post-dummy-target id=查询操作></a><h3>查询操作</h3><p>1.indexOf
+容易看懂就不解释了,查不到时返回-1,可以查null</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-java data-lang=java><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-java data-lang=java>    <span class=kd>public</span> <span class=nf>int</span> <span class=n>indexOf</span><span class=p>(</span><span class=n>Object</span> <span class=nf>o</span><span class=p>)</span> <span class=p>{</span>
+        <span class=kt>int</span> <span class=nf>index</span> <span class=o>=</span> <span class=n>0</span><span class=p>;</span>
+        <span class=k>if</span> <span class=p>(</span><span class=n>o</span> <span class=o>==</span> <span class=kc>null</span><span class=p>)</span> <span class=p>{</span>
+            <span class=k>for</span> <span class=p>(</span><span class=n>Node</span><span class=o>&lt;</span><span class=n>E</span><span class=o>&gt;</span> <span class=nf>x</span> <span class=o>=</span> <span class=n>first</span><span class=p>;</span> <span class=n>x</span> <span class=o>!=</span> <span class=kc>null</span><span class=p>;</span> <span class=n>x</span> <span class=o>=</span> <span class=n>x</span><span class=p>.</span><span class=na>next</span><span class=p>)</span> <span class=p>{</span>
+                <span class=k>if</span> <span class=p>(</span><span class=n>x</span><span class=p>.</span><span class=na>item</span> <span class=o>==</span> <span class=kc>null</span><span class=p>)</span>
+                    <span class=k>return</span> <span class=n>index</span><span class=p>;</span>
+                <span class=n>index</span><span class=o>++</span><span class=p>;</span>
+            <span class=p>}</span>
+        <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+            <span class=k>for</span> <span class=p>(</span><span class=n>Node</span><span class=o>&lt;</span><span class=n>E</span><span class=o>&gt;</span> <span class=nf>x</span> <span class=o>=</span> <span class=n>first</span><span class=p>;</span> <span class=n>x</span> <span class=o>!=</span> <span class=kc>null</span><span class=p>;</span> <span class=n>x</span> <span class=o>=</span> <span class=n>x</span><span class=p>.</span><span class=na>next</span><span class=p>)</span> <span class=p>{</span>
+                <span class=k>if</span> <span class=p>(</span><span class=n>o</span><span class=p>.</span><span class=na>equals</span><span class=p>(</span><span class=n>x</span><span class=p>.</span><span class=na>item</span><span class=p>))</span>
+                    <span class=k>return</span> <span class=n>index</span><span class=p>;</span>
+                <span class=n>index</span><span class=o>++</span><span class=p>;</span>
+            <span class=p>}</span>
+        <span class=p>}</span>
+        <span class=k>return</span> <span class=o>-</span><span class=n>1</span><span class=p>;</span>
+    <span class=p>}</span></code></pre></td></tr></table></div></div><a class=post-dummy-target id=队列类的操作></a><h3>队列类的操作</h3><ol><li><p>peek</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-java data-lang=java><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-java data-lang=java><span class=c1>//获取头节点 但不删除 可以为null
+</span><span class=c1></span><span class=kd>public</span> <span class=nf>E</span> <span class=n>peek</span><span class=p>()</span> <span class=p>{</span>
+    <span class=kd>final</span> <span class=nf>Node</span><span class=o>&lt;</span><span class=n>E</span><span class=o>&gt;</span> <span class=nf>f</span> <span class=o>=</span> <span class=n>first</span><span class=p>;</span>
+    <span class=k>return</span> <span class=p>(</span><span class=n>f</span> <span class=o>==</span> <span class=kc>null</span><span class=p>)</span> <span class=o>?</span> <span class=kc>null</span> <span class=o>:</span> <span class=n>f</span><span class=p>.</span><span class=na>item</span><span class=p>;</span>
+<span class=p>}</span></code></pre></td></tr></table></div></div></li><li><p>element 和peek一样也是获取头结点 但是若为null会抛空指针异常</p></li><li><p>poll 就是队列里的pop操作,即出队</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-java data-lang=java><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-java data-lang=java><span class=kd>public</span> <span class=nf>E</span> <span class=n>poll</span><span class=p>()</span> <span class=p>{</span>
+    <span class=kd>final</span> <span class=nf>Node</span><span class=o>&lt;</span><span class=n>E</span><span class=o>&gt;</span> <span class=nf>f</span> <span class=o>=</span> <span class=n>first</span><span class=p>;</span>
+    <span class=k>return</span> <span class=p>(</span><span class=n>f</span> <span class=o>==</span> <span class=kc>null</span><span class=p>)</span> <span class=o>?</span> <span class=kc>null</span> <span class=o>:</span> <span class=n>unlinkFirst</span><span class=p>(</span><span class=n>f</span><span class=p>);</span>
+<span class=p>}</span></code></pre></td></tr></table></div></div><p>4.offer入队
+队尾插入元素</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-java data-lang=java><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-java data-lang=java><span class=kd>public</span> <span class=nf>boolean</span> <span class=n>offer</span><span class=p>(</span><span class=n>E</span> <span class=nf>e</span><span class=p>)</span> <span class=p>{</span>
+    <span class=k>return</span> <span class=n>add</span><span class=p>(</span><span class=n>e</span><span class=p>);</span>
+<span class=p>}</span></code></pre></td></tr></table></div></div></li></ol><a class=post-dummy-target id=linkedlist中的迭代器></a><h3>LinkedList中的迭代器</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-java data-lang=java><span class=lnt>  1
+</span><span class=lnt>  2
+</span><span class=lnt>  3
+</span><span class=lnt>  4
+</span><span class=lnt>  5
+</span><span class=lnt>  6
+</span><span class=lnt>  7
+</span><span class=lnt>  8
+</span><span class=lnt>  9
+</span><span class=lnt> 10
+</span><span class=lnt> 11
+</span><span class=lnt> 12
+</span><span class=lnt> 13
+</span><span class=lnt> 14
+</span><span class=lnt> 15
+</span><span class=lnt> 16
+</span><span class=lnt> 17
+</span><span class=lnt> 18
+</span><span class=lnt> 19
+</span><span class=lnt> 20
+</span><span class=lnt> 21
+</span><span class=lnt> 22
+</span><span class=lnt> 23
+</span><span class=lnt> 24
+</span><span class=lnt> 25
+</span><span class=lnt> 26
+</span><span class=lnt> 27
+</span><span class=lnt> 28
+</span><span class=lnt> 29
+</span><span class=lnt> 30
+</span><span class=lnt> 31
+</span><span class=lnt> 32
+</span><span class=lnt> 33
+</span><span class=lnt> 34
+</span><span class=lnt> 35
+</span><span class=lnt> 36
+</span><span class=lnt> 37
+</span><span class=lnt> 38
+</span><span class=lnt> 39
+</span><span class=lnt> 40
+</span><span class=lnt> 41
+</span><span class=lnt> 42
+</span><span class=lnt> 43
+</span><span class=lnt> 44
+</span><span class=lnt> 45
+</span><span class=lnt> 46
+</span><span class=lnt> 47
+</span><span class=lnt> 48
+</span><span class=lnt> 49
+</span><span class=lnt> 50
+</span><span class=lnt> 51
+</span><span class=lnt> 52
+</span><span class=lnt> 53
+</span><span class=lnt> 54
+</span><span class=lnt> 55
+</span><span class=lnt> 56
+</span><span class=lnt> 57
+</span><span class=lnt> 58
+</span><span class=lnt> 59
+</span><span class=lnt> 60
+</span><span class=lnt> 61
+</span><span class=lnt> 62
+</span><span class=lnt> 63
+</span><span class=lnt> 64
+</span><span class=lnt> 65
+</span><span class=lnt> 66
+</span><span class=lnt> 67
+</span><span class=lnt> 68
+</span><span class=lnt> 69
+</span><span class=lnt> 70
+</span><span class=lnt> 71
+</span><span class=lnt> 72
+</span><span class=lnt> 73
+</span><span class=lnt> 74
+</span><span class=lnt> 75
+</span><span class=lnt> 76
+</span><span class=lnt> 77
+</span><span class=lnt> 78
+</span><span class=lnt> 79
+</span><span class=lnt> 80
+</span><span class=lnt> 81
+</span><span class=lnt> 82
+</span><span class=lnt> 83
+</span><span class=lnt> 84
+</span><span class=lnt> 85
+</span><span class=lnt> 86
+</span><span class=lnt> 87
+</span><span class=lnt> 88
+</span><span class=lnt> 89
+</span><span class=lnt> 90
+</span><span class=lnt> 91
+</span><span class=lnt> 92
+</span><span class=lnt> 93
+</span><span class=lnt> 94
+</span><span class=lnt> 95
+</span><span class=lnt> 96
+</span><span class=lnt> 97
+</span><span class=lnt> 98
+</span><span class=lnt> 99
+</span><span class=lnt>100
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-java data-lang=java>    <span class=c1>//该迭代器是快速失败的,如果在创建迭代器后操作了链表(add/remove),不是迭代器中的操作(add/remove),就会抛ConcurrentModificationException异常.
+</span><span class=c1></span>    <span class=c1>//原因是迭代器中维护了expectedModCount每次操作前都会比较该值与modCount是否一致,不一致就抛,所以在迭代中增删节点时还是要通过迭代器的操作比较好
+</span><span class=c1></span>    <span class=kd>private</span> <span class=nf>class</span> <span class=n>ListItr</span> <span class=nf>implements</span> <span class=n>ListIterator</span><span class=o>&lt;</span><span class=n>E</span><span class=o>&gt;</span> <span class=p>{</span>
+        <span class=kd>private</span> <span class=nf>Node</span><span class=o>&lt;</span><span class=n>E</span><span class=o>&gt;</span> <span class=nf>lastReturned</span><span class=p>;</span><span class=c1>//用作返回节点
+</span><span class=c1></span>        <span class=kd>private</span> <span class=nf>Node</span><span class=o>&lt;</span><span class=n>E</span><span class=o>&gt;</span> <span class=nf>next</span><span class=p>;</span><span class=c1>//记录下一个节点
+</span><span class=c1></span>        <span class=kd>private</span> <span class=nf>int</span> <span class=n>nextIndex</span><span class=p>;</span><span class=c1>//下一个index
+</span><span class=c1></span>        <span class=kd>private</span> <span class=nf>int</span> <span class=n>expectedModCount</span> <span class=o>=</span> <span class=n>modCount</span><span class=p>;</span><span class=c1>//初始化期望操作值
+</span><span class=c1></span>
+        <span class=n>ListItr</span><span class=p>(</span><span class=kt>int</span> <span class=nf>index</span><span class=p>)</span> <span class=p>{</span>
+            <span class=c1>// assert isPositionIndex(index);
+</span><span class=c1></span>            <span class=n>next</span> <span class=o>=</span> <span class=p>(</span><span class=n>index</span> <span class=o>==</span> <span class=n>size</span><span class=p>)</span> <span class=o>?</span> <span class=kc>null</span> <span class=o>:</span> <span class=n>node</span><span class=p>(</span><span class=n>index</span><span class=p>);</span><span class=c1>//若index==size则是尾节点
+</span><span class=c1></span>            <span class=n>nextIndex</span> <span class=o>=</span> <span class=n>index</span><span class=p>;</span>
+        <span class=p>}</span>
+
+        <span class=kd>public</span> <span class=nf>boolean</span> <span class=n>hasNext</span><span class=p>()</span> <span class=p>{</span>
+            <span class=k>return</span> <span class=n>nextIndex</span> <span class=o>&lt;</span> <span class=n>size</span><span class=p>;</span><span class=c1>//通过坐标值判断是否有下一个
+</span><span class=c1></span>        <span class=p>}</span>
+
+        <span class=kd>public</span> <span class=nf>E</span> <span class=n>next</span><span class=p>()</span> <span class=p>{</span>
+            <span class=n>checkForComodification</span><span class=p>();</span><span class=c1>//校验操作避免使用list的add/remove操作
+</span><span class=c1></span>            <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=n>hasNext</span><span class=p>())</span>
+                <span class=k>throw</span> <span class=k>new</span> <span class=n>NoSuchElementException</span><span class=p>();</span>
+
+            <span class=n>lastReturned</span> <span class=o>=</span> <span class=n>next</span><span class=p>;</span>
+            <span class=n>next</span> <span class=o>=</span> <span class=n>next</span><span class=p>.</span><span class=na>next</span><span class=p>;</span>
+            <span class=n>nextIndex</span><span class=o>++</span><span class=p>;</span>
+            <span class=k>return</span> <span class=n>lastReturned</span><span class=p>.</span><span class=na>item</span><span class=p>;</span>
+        <span class=p>}</span>
+
+        <span class=kd>public</span> <span class=nf>boolean</span> <span class=n>hasPrevious</span><span class=p>()</span> <span class=p>{</span>
+            <span class=k>return</span> <span class=n>nextIndex</span> <span class=o>&gt;</span> <span class=n>0</span><span class=p>;</span>
+        <span class=p>}</span>
+
+        <span class=kd>public</span> <span class=nf>E</span> <span class=n>previous</span><span class=p>()</span> <span class=p>{</span>
+            <span class=n>checkForComodification</span><span class=p>();</span>
+            <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=n>hasPrevious</span><span class=p>())</span>
+                <span class=k>throw</span> <span class=k>new</span> <span class=n>NoSuchElementException</span><span class=p>();</span>
+
+            <span class=n>lastReturned</span> <span class=o>=</span> <span class=n>next</span> <span class=o>=</span> <span class=p>(</span><span class=n>next</span> <span class=o>==</span> <span class=kc>null</span><span class=p>)</span> <span class=o>?</span> <span class=n>last</span> <span class=o>:</span> <span class=n>next</span><span class=p>.</span><span class=na>prev</span><span class=p>;</span>
+            <span class=n>nextIndex</span><span class=o>--</span><span class=p>;</span>
+            <span class=k>return</span> <span class=n>lastReturned</span><span class=p>.</span><span class=na>item</span><span class=p>;</span>
+        <span class=p>}</span>
+
+        <span class=kd>public</span> <span class=nf>int</span> <span class=n>nextIndex</span><span class=p>()</span> <span class=p>{</span>
+            <span class=k>return</span> <span class=n>nextIndex</span><span class=p>;</span>
+        <span class=p>}</span>
+
+        <span class=kd>public</span> <span class=nf>int</span> <span class=n>previousIndex</span><span class=p>()</span> <span class=p>{</span>
+            <span class=k>return</span> <span class=n>nextIndex</span> <span class=o>-</span> <span class=n>1</span><span class=p>;</span>
+        <span class=p>}</span>
+        <span class=c1>//迭代器的删除节点操作
+</span><span class=c1></span>        <span class=kd>public</span> <span class=nf>void</span> <span class=n>remove</span><span class=p>()</span> <span class=p>{</span>
+            <span class=n>checkForComodification</span><span class=p>();</span><span class=c1>//校验操作次数
+</span><span class=c1></span>            <span class=k>if</span> <span class=p>(</span><span class=n>lastReturned</span> <span class=o>==</span> <span class=kc>null</span><span class=p>)</span><span class=c1>//状态校验
+</span><span class=c1></span>                <span class=k>throw</span> <span class=k>new</span> <span class=n>IllegalStateException</span><span class=p>();</span>
+
+            <span class=n>Node</span><span class=o>&lt;</span><span class=n>E</span><span class=o>&gt;</span> <span class=nf>lastNext</span> <span class=o>=</span> <span class=n>lastReturned</span><span class=p>.</span><span class=na>next</span><span class=p>;</span><span class=c1>//获得当前节点的下一个节点
+</span><span class=c1></span>            <span class=n>unlink</span><span class=p>(</span><span class=n>lastReturned</span><span class=p>);</span><span class=c1>//断开当前节点,将当前节点的前后节点相连接 size会减1 modCount会+1
+</span><span class=c1></span>            <span class=k>if</span> <span class=p>(</span><span class=n>next</span> <span class=o>==</span> <span class=n>lastReturned</span><span class=p>)</span>
+                <span class=n>next</span> <span class=o>=</span> <span class=n>lastNext</span><span class=p>;</span>
+            <span class=k>else</span>
+                <span class=n>nextIndex</span><span class=o>--</span><span class=p>;</span><span class=c1>//坐标值减1
+</span><span class=c1></span>            <span class=n>lastReturned</span> <span class=o>=</span> <span class=kc>null</span><span class=p>;</span>
+            <span class=n>expectedModCount</span><span class=o>++</span><span class=p>;</span><span class=c1>//保持与modCount一致
+</span><span class=c1></span>        <span class=p>}</span>
+        <span class=c1>//设置当前的节点的item
+</span><span class=c1></span>        <span class=kd>public</span> <span class=nf>void</span> <span class=n>set</span><span class=p>(</span><span class=n>E</span> <span class=nf>e</span><span class=p>)</span> <span class=p>{</span>
+            <span class=k>if</span> <span class=p>(</span><span class=n>lastReturned</span> <span class=o>==</span> <span class=kc>null</span><span class=p>)</span>
+                <span class=k>throw</span> <span class=k>new</span> <span class=n>IllegalStateException</span><span class=p>();</span>
+            <span class=n>checkForComodification</span><span class=p>();</span>
+            <span class=n>lastReturned</span><span class=p>.</span><span class=na>item</span> <span class=o>=</span> <span class=n>e</span><span class=p>;</span>
+        <span class=p>}</span>
+        <span class=c1>//和普通add操作一样 主要是需要将nextIndex和expectedModCount都+1
+</span><span class=c1></span>        <span class=kd>public</span> <span class=nf>void</span> <span class=n>add</span><span class=p>(</span><span class=n>E</span> <span class=nf>e</span><span class=p>)</span> <span class=p>{</span>
+            <span class=n>checkForComodification</span><span class=p>();</span>
+            <span class=n>lastReturned</span> <span class=o>=</span> <span class=kc>null</span><span class=p>;</span>
+            <span class=k>if</span> <span class=p>(</span><span class=n>next</span> <span class=o>==</span> <span class=kc>null</span><span class=p>)</span>
+                <span class=n>linkLast</span><span class=p>(</span><span class=n>e</span><span class=p>);</span>
+            <span class=k>else</span>
+                <span class=n>linkBefore</span><span class=p>(</span><span class=n>e</span><span class=p>,</span> <span class=n>next</span><span class=p>);</span>
+            <span class=n>nextIndex</span><span class=o>++</span><span class=p>;</span>
+            <span class=n>expectedModCount</span><span class=o>++</span><span class=p>;</span>
+        <span class=p>}</span>
+        <span class=c1>//挺方便的迭代 重写下accept方法 可以用lambda表达式
+</span><span class=c1></span>        <span class=kd>public</span> <span class=nf>void</span> <span class=n>forEachRemaining</span><span class=p>(</span><span class=n>Consumer</span><span class=o>&lt;?</span> <span class=kd>super</span> <span class=nf>E</span><span class=o>&gt;</span> <span class=n>action</span><span class=p>)</span> <span class=p>{</span>
+            <span class=n>Objects</span><span class=p>.</span><span class=na>requireNonNull</span><span class=p>(</span><span class=n>action</span><span class=p>);</span>
+            <span class=k>while</span> <span class=p>(</span><span class=n>modCount</span> <span class=o>==</span> <span class=n>expectedModCount</span> <span class=o>&amp;&amp;</span> <span class=n>nextIndex</span> <span class=o>&lt;</span> <span class=n>size</span><span class=p>)</span> <span class=p>{</span>
+                <span class=n>action</span><span class=p>.</span><span class=na>accept</span><span class=p>(</span><span class=n>next</span><span class=p>.</span><span class=na>item</span><span class=p>);</span>
+                <span class=n>lastReturned</span> <span class=o>=</span> <span class=n>next</span><span class=p>;</span>
+                <span class=n>next</span> <span class=o>=</span> <span class=n>next</span><span class=p>.</span><span class=na>next</span><span class=p>;</span>
+                <span class=n>nextIndex</span><span class=o>++</span><span class=p>;</span>
+            <span class=p>}</span>
+            <span class=n>checkForComodification</span><span class=p>();</span>
+        <span class=p>}</span>
+        <span class=c1>//操作校验
+</span><span class=c1></span>        <span class=kd>final</span> <span class=nf>void</span> <span class=n>checkForComodification</span><span class=p>()</span> <span class=p>{</span>
+            <span class=k>if</span> <span class=p>(</span><span class=n>modCount</span> <span class=o>!=</span> <span class=n>expectedModCount</span><span class=p>)</span>
+                <span class=k>throw</span> <span class=k>new</span> <span class=n>ConcurrentModificationException</span><span class=p>();</span>
+        <span class=p>}</span>
+    <span class=p>}</span></code></pre></td></tr></table></div></div></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>本文于 2019-08-15 更新</span></div><div class=post-info-license></div></div><div class=post-info-line><div class=post-info-md><span><a class=link-to-markdown href=https://xiaohei.im/2019/08/linkedlist/index.md target=_blank>阅读原始文档</a></span></div><div class=post-info-share><span></span></div></div></div><div class=post-info-more><section><span class=tag><a href=https://xiaohei.im/tags/collections/><i class="fas fa-tag fa-fw"></i>collections</a></span></section><section><span><a href=javascript:window.history.back();>返回</a></span>&nbsp;|&nbsp;<span><a href=https://xiaohei.im/>主页</a></span></section></div><div class=post-nav><a href=https://xiaohei.im/2019/08/treemap/ class=prev rel=prev title=Collections-Treemap><i class="fas fa-angle-left fa-fw"></i>Collections-Treemap</a>
+<a href=https://xiaohei.im/2019/08/linkedhashmap/ class=next rel=next title=Collections-Linkedhashmap>Collections-Linkedhashmap<i class="fas fa-angle-right fa-fw"></i></a></div></div><div class=post-comment><div id=gitalk-container></div><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css><script src=https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js></script><script type=text/javascript>var gitalk=new Gitalk({id:"2019-08-15 13:19:18 \x2b0800 \x2b0800",title:"Collections-Linkedlist",clientID:"e38fc798c72a7e4e1386",clientSecret:"e151aa3b7b98d3cfaa1f096b88fdd7897e2c8007",repo:"xiaoheiAh.github.io",owner:"xiaoheiAh",admin:["xiaoheiAh"],body:decodeURI(location.href)});gitalk.render("gitalk-container");</script><noscript>Please enable JavaScript to view the <a href=https://github.com/gitalk/gitalk>comments powered by gitalk.</a></noscript></div></article></div></main><footer class=footer><div class=copyright><div class=copyright-line>由 <a href=https://gohugo.io/ target=_blank rel="external nofollow noopener noreffer">Hugo</a> 强力驱动&nbsp;|&nbsp;主题 - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="external nofollow noopener noreffer">LoveIt<i class="far fa-heart fa-fw"></i></a></div><div class=copyright-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2018 - 2019</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://xiaohei.im/>xiaoheiAh</a></span><span class=license>&nbsp;|&nbsp;<a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer><script src=/js/lib/jquery/jquery.slim.min.min.js></script><script src=/js/lib/lazysizes/lazysizes.min.min.js></script><script src=/js/lib/smooth-scroll/smooth-scroll.polyfills.min.min.js></script><script>window.scroll=new SmoothScroll('[data-scroll]',{speed:300,speedAsDuration:true});</script><script src=/js/blog.min.js></script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-98254666-1','auto');ga('set','anonymizeIp',true);ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></div><a href=# class=dynamic-to-top id=dynamic-to-top data-scroll><span>&nbsp;</span></a></body></html>

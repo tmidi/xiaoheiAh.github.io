@@ -1,0 +1,112 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>Collections-Hashset | xiaohei&#39;s blog | Java Developer</title><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content=noodp><meta name=Description content=赵小黑的各种记录><link rel=prev href=https://xiaohei.im/2019/08/linkedhashmap/><link rel=next href=https://xiaohei.im/2019/08/hashmap/><link rel=canonical href=https://xiaohei.im/2019/08/hashset/><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><meta name=twitter:card content=summary><meta name=twitter:title content=Collections-Hashset><meta name=twitter:description content><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Collections-Hashset","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/xiaohei.im\/2019\/08\/hashset\/"},"image":{"@type":"ImageObject","url":"https:\/\/xiaohei.im\/cover.png","width":800,"height":600},"genre":"posts","keywords":"collections","wordcount":323,"url":"https:\/\/xiaohei.im\/2019\/08\/hashset\/","datePublished":"2019-08-15T13:19:18\x2b08:00","dateModified":"2019-08-15T13:19:18\x2b08:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"XXXX","logo":{"@type":"ImageObject","url":"https:\/\/xiaohei.im\/logo.png","width":127,"height":40}},"description":""}</script><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.10.1/css/all.min.css integrity="sha256-fdcFNFiBMrNfWL6OcAGQz6jDgNTRxnrLEd4vJYFWScE=" crossorigin=anonymous><link rel=stylesheet href=/css/lib/animate/animate.min.min.css></head><body><script>window.isDark=(window.localStorage&&window.localStorage.getItem('theme'))==='dark';window.isDark&&document.body.classList.add('dark-theme');</script><div class=wrapper><nav class=navbar><div class=navbar-container><div class=navbar-header><a href=https://xiaohei.im/>xiaohei&#39;s blog | Java Developer</a></div><div class=navbar-menu><a class=menu-item href=https://xiaohei.im/posts/>文章</a>
+<a class=menu-item href=https://xiaohei.im/tags/>标签</a>
+<a class=menu-item href=https://xiaohei.im/categories/>分类</a>
+<a class=menu-item href=https://xiaohei.im/about/>关于</a>
+<a href=javascript:void(0); class=theme-switch><i class="fas fa-adjust fa-rotate-180 fa-fw"></i></a></div></div></nav><nav class=navbar-mobile><div class=navbar-container><div class=navbar-header><div><a href=javascript:void(0); class=theme-switch><i class="fas fa-adjust fa-rotate-180 fa-fw"></i></a><a href=https://xiaohei.im/>xiaohei&#39;s blog | Java Developer</a></div><div class=menu-toggle id=menu-toggle><span></span><span></span><span></span></div></div><div class=navbar-menu id=mobile-menu><a class=menu-item href=https://xiaohei.im/posts/>文章</a>
+<a class=menu-item href=https://xiaohei.im/tags/>标签</a>
+<a class=menu-item href=https://xiaohei.im/categories/>分类</a>
+<a class=menu-item href=https://xiaohei.im/about/>关于</a></div></div></nav><main class=main><div class=container><article class=post-warp><h1 class="post-title animated flipInX">Collections-Hashset</h1><div class=post-meta><div class=post-meta-main><a class=author href=https://xiaohei.im/ rel=author><i class="fas fa-user-circle fa-fw"></i>xiaoheiAh&nbsp;</a>
+<span class=post-category>收录于
+<i class="far fa-folder fa-fw"></i><a href=https://xiaohei.im/categories/corejava/>CoreJava</a></span></div><div class=post-meta-other><i class="far fa-calendar-alt fa-fw"></i><time datetime=2019-08-15>2019-08-15</time>&nbsp;
+<i class="fas fa-pencil-alt fa-fw"></i>约 323 字&nbsp;
+<i class="far fa-clock fa-fw"></i>预计阅读 1 分钟&nbsp;</div></div><div class=post-toc id=post-toc><h2 class=post-toc-title>目录</h2><div class=post-toc-content><nav id=TableOfContents><ul><li><ul><li><a href=#介绍>介绍</a></li><li><a href=#参数>参数</a></li><li><a href=#常用方法>常用方法</a></li></ul></li></ul></nav></div></div><div class=post-toc-mobile id=post-toc-mobile><details><summary><div class=post-toc-title><span>目录</span><span><i class="details icon fas fa-angle-down"></i></span></div></summary><div class=post-toc-content><nav id=TableOfContentsMobile><ul><li><ul><li><a href=#介绍>介绍</a></li><li><a href=#参数>参数</a></li><li><a href=#常用方法>常用方法</a></li></ul></li></ul></nav></div></details></div><div class=post-content><blockquote><p><a href="http://cmsblogs.com/?p=599">HashSet详解</a></p></blockquote><a class=post-dummy-target id=介绍></a><h2>介绍</h2><ol><li><p>基于<code>HashMap</code>保存元素不保证有序,不包含<code>重复</code>元素,允许<code>null</code>值.主要继承关系如图:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-mermaid data-lang=mermaid><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-mermaid data-lang=mermaid>graph BT
+HashSet--&gt;AbstractSet
+HashSet-.-&gt;Set
+AbstractSet-.-&gt;Set
+AbstractSet--&gt;AbstractCollection
+AbstractCollection-.-&gt;Collection	</code></pre></td></tr></table></div></div></li></ol><a class=post-dummy-target id=参数></a><h2>参数</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-java data-lang=java><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-java data-lang=java><span class=kd>static</span> <span class=nf>final</span> <span class=kt>long</span> <span class=nf>serialVersionUID</span> <span class=o>=</span> <span class=o>-</span><span class=n>5024744406713321676L</span><span class=p>;</span>
+
+<span class=c1>//底层存储用的hashMap
+</span><span class=c1></span><span class=kd>private</span> <span class=nf>transient</span> <span class=n>HashMap</span><span class=o>&lt;</span><span class=n>E</span><span class=p>,</span><span class=n>Object</span><span class=o>&gt;</span> <span class=nf>map</span><span class=p>;</span>
+
+<span class=c1>//定义一个Object对象作为HashMap的value
+</span><span class=c1></span><span class=kd>private</span> <span class=nf>static</span> <span class=kd>final</span> <span class=nf>Object</span> <span class=n>PRESENT</span> <span class=o>=</span> <span class=k>new</span> <span class=n>Object</span><span class=p>();</span></code></pre></td></tr></table></div></div><a class=post-dummy-target id=常用方法></a><h2>常用方法</h2><p>由于底层是<code>hashmap</code>存储的,所以基本是一样的.没什么区别.实现不重复插入是通过比较put操作的返回值是不是null</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-java data-lang=java><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-java data-lang=java><span class=kd>public</span> <span class=nf>Iterator</span><span class=o>&lt;</span><span class=n>E</span><span class=o>&gt;</span> <span class=nf>iterator</span><span class=p>()</span> <span class=p>{</span>
+    <span class=k>return</span> <span class=n>map</span><span class=p>.</span><span class=na>keySet</span><span class=p>().</span><span class=na>iterator</span><span class=p>();</span>
+<span class=p>}</span>
+
+<span class=kd>public</span> <span class=nf>int</span> <span class=n>size</span><span class=p>()</span> <span class=p>{</span>
+    <span class=k>return</span> <span class=n>map</span><span class=p>.</span><span class=na>size</span><span class=p>();</span>
+<span class=p>}</span>
+
+<span class=kd>public</span> <span class=nf>boolean</span> <span class=n>isEmpty</span><span class=p>()</span> <span class=p>{</span>
+    <span class=k>return</span> <span class=n>map</span><span class=p>.</span><span class=na>isEmpty</span><span class=p>();</span>
+<span class=p>}</span>
+
+<span class=kd>public</span> <span class=nf>boolean</span> <span class=n>contains</span><span class=p>(</span><span class=n>Object</span> <span class=nf>o</span><span class=p>)</span> <span class=p>{</span>
+    <span class=k>return</span> <span class=n>map</span><span class=p>.</span><span class=na>containsKey</span><span class=p>(</span><span class=n>o</span><span class=p>);</span>
+<span class=p>}</span>
+
+<span class=kd>public</span> <span class=nf>boolean</span> <span class=n>add</span><span class=p>(</span><span class=n>E</span> <span class=nf>e</span><span class=p>)</span> <span class=p>{</span>
+    <span class=k>return</span> <span class=n>map</span><span class=p>.</span><span class=na>put</span><span class=p>(</span><span class=n>e</span><span class=p>,</span> <span class=n>PRESENT</span><span class=p>)</span><span class=o>==</span><span class=kc>null</span><span class=p>;</span>
+<span class=p>}</span>
+
+<span class=kd>public</span> <span class=nf>boolean</span> <span class=n>remove</span><span class=p>(</span><span class=n>Object</span> <span class=nf>o</span><span class=p>)</span> <span class=p>{</span>
+    <span class=k>return</span> <span class=n>map</span><span class=p>.</span><span class=na>remove</span><span class=p>(</span><span class=n>o</span><span class=p>)</span><span class=o>==</span><span class=n>PRESENT</span><span class=p>;</span>
+<span class=p>}</span>
+
+<span class=kd>public</span> <span class=nf>void</span> <span class=n>clear</span><span class=p>()</span> <span class=p>{</span>
+    <span class=n>map</span><span class=p>.</span><span class=na>clear</span><span class=p>();</span>
+<span class=p>}</span>
+
+<span class=nd>@SuppressWarnings</span><span class=p>(</span><span class=s>&#34;unchecked&#34;</span><span class=p>)</span>
+<span class=kd>public</span> <span class=nf>Object</span> <span class=n>clone</span><span class=p>()</span> <span class=p>{</span>
+    <span class=k>try</span> <span class=p>{</span>
+        <span class=n>HashSet</span><span class=o>&lt;</span><span class=n>E</span><span class=o>&gt;</span> <span class=nf>newSet</span> <span class=o>=</span> <span class=p>(</span><span class=n>HashSet</span><span class=o>&lt;</span><span class=n>E</span><span class=o>&gt;</span><span class=p>)</span> <span class=kd>super</span><span class=p>.</span><span class=na>clone</span><span class=p>();</span>
+        <span class=n>newSet</span><span class=p>.</span><span class=na>map</span> <span class=o>=</span> <span class=p>(</span><span class=n>HashMap</span><span class=o>&lt;</span><span class=n>E</span><span class=p>,</span> <span class=n>Object</span><span class=o>&gt;</span><span class=p>)</span> <span class=n>map</span><span class=p>.</span><span class=na>clone</span><span class=p>();</span>
+        <span class=k>return</span> <span class=n>newSet</span><span class=p>;</span>
+    <span class=p>}</span> <span class=k>catch</span> <span class=p>(</span><span class=n>CloneNotSupportedException</span> <span class=nf>e</span><span class=p>)</span> <span class=p>{</span>
+        <span class=k>throw</span> <span class=k>new</span> <span class=n>InternalError</span><span class=p>(</span><span class=n>e</span><span class=p>);</span>
+    <span class=p>}</span>
+<span class=p>}</span></code></pre></td></tr></table></div></div></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>本文于 2019-08-15 更新</span></div><div class=post-info-license></div></div><div class=post-info-line><div class=post-info-md><span><a class=link-to-markdown href=https://xiaohei.im/2019/08/hashset/index.md target=_blank>阅读原始文档</a></span></div><div class=post-info-share><span></span></div></div></div><div class=post-info-more><section><span class=tag><a href=https://xiaohei.im/tags/collections/><i class="fas fa-tag fa-fw"></i>collections</a></span></section><section><span><a href=javascript:window.history.back();>返回</a></span>&nbsp;|&nbsp;<span><a href=https://xiaohei.im/>主页</a></span></section></div><div class=post-nav><a href=https://xiaohei.im/2019/08/linkedhashmap/ class=prev rel=prev title=Collections-Linkedhashmap><i class="fas fa-angle-left fa-fw"></i>Collections-Linkedhashmap</a>
+<a href=https://xiaohei.im/2019/08/hashmap/ class=next rel=next title=Collections-Hashmap>Collections-Hashmap<i class="fas fa-angle-right fa-fw"></i></a></div></div><div class=post-comment><div id=gitalk-container></div><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css><script src=https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js></script><script type=text/javascript>var gitalk=new Gitalk({id:"2019-08-15 13:19:18 \x2b0800 \x2b0800",title:"Collections-Hashset",clientID:"e38fc798c72a7e4e1386",clientSecret:"e151aa3b7b98d3cfaa1f096b88fdd7897e2c8007",repo:"xiaoheiAh.github.io",owner:"xiaoheiAh",admin:["xiaoheiAh"],body:decodeURI(location.href)});gitalk.render("gitalk-container");</script><noscript>Please enable JavaScript to view the <a href=https://github.com/gitalk/gitalk>comments powered by gitalk.</a></noscript></div></article></div></main><footer class=footer><div class=copyright><div class=copyright-line>由 <a href=https://gohugo.io/ target=_blank rel="external nofollow noopener noreffer">Hugo</a> 强力驱动&nbsp;|&nbsp;主题 - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="external nofollow noopener noreffer">LoveIt<i class="far fa-heart fa-fw"></i></a></div><div class=copyright-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2018 - 2019</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://xiaohei.im/>xiaoheiAh</a></span><span class=license>&nbsp;|&nbsp;<a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer><script src=/js/lib/jquery/jquery.slim.min.min.js></script><script src=/js/lib/lazysizes/lazysizes.min.min.js></script><script src=/js/lib/smooth-scroll/smooth-scroll.polyfills.min.min.js></script><script>window.scroll=new SmoothScroll('[data-scroll]',{speed:300,speedAsDuration:true});</script><script src=/js/blog.min.js></script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-98254666-1','auto');ga('set','anonymizeIp',true);ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></div><a href=# class=dynamic-to-top id=dynamic-to-top data-scroll><span>&nbsp;</span></a></body></html>
