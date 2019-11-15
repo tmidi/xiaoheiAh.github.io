@@ -1,0 +1,79 @@
+baseURL = "https://xiaoheiAh.github.io/"
+languageCode = "zh-CN"
+title = "赵小黑的博客"
+theme = "yinyang"
+DefaultContentLanguage = "cn"
+hasCJKLanguage = true # 开启可以让「字数统计」统计汉字
+paginate = 10 # 每页的文章数
+enableEmoji = true # 支持 Emoji
+enableRobotsTXT = true # 支持 robots.txt
+googleAnalytics = "UA-98254666-1" # Google 统计 id
+[taxonomies]
+    category = "categories"
+    tag = "tags"
+    series = "series"
+
+# [module]
+#  [[module.mounts]]
+#    source = "content/posts"
+#    target = "content"
+
+[menu]
+
+[[menu.main]]
+    name = "About"
+    url = "/about"
+    weight = 9
+[[menu.main]]
+    name = "Posts"
+    url = "/posts"
+    weight = 1
+[[menu.main]]
+    name = "Tags"
+    url = "/tags"
+    weight = 2
+
+[blackfriday]
+  hrefTargetBlank = true
+  nofollowLinks = true
+  noreferrerLinks = true
+
+[Permalinks]
+ posts = "/:year/:filename/"
+
+[author]
+  name = "xiaoheiah"
+
+[params]
+  author = "xiaoheiah"
+  subtitle = "java/rust"
+  keywords = "java,rust,分布式"
+  description = "java/rust 时长一年半撸码练习生"
+  enableGitalk = false
+  # busuanzi
+  busuanzi = true
+  busuanzi_site_offset = 100
+  disqus = "xiaoheiah"
+  [[params.socials]]
+    name = "About Me"
+    link = "/about"
+    icon = "man"
+
+  [params.gitalk] 
+    clientID = "e38fc798c72a7e4e1386" # Your client ID
+    clientSecret = "e151aa3b7b98d3cfaa1f096b88fdd7897e2c8007" # Your client secret
+    repo = "xiaoheiAh.github.io" # The repo to store comments
+    owner = "xiaoheiAh" # Your GitHub ID
+    admin= "xiaoheiAh" # Required. Github repository owner and collaborators. (Users who having write access to this repository)
+    id= "location.pathname" # The unique id of the page.
+    labels= "gitalk" # Github issue labels. If you used to use Gitment, you can change it
+    perPage= 15 # Pagination size, with maximum 100.
+    pagerDirection= "last" # Comment sorting direction, available values are 'last' and 'first'.
+    createIssueManually= false # If it is 'false', it is auto to make a Github issue when the administrators login.
+    distractionFreeMode= false # Enable hot key (cmd|ctrl + enter) submit comment.
+
+[languages]
+  [languages.cn]
+    contentDir = "content"
+    languageName = "Chinese"
+    weight = 2
